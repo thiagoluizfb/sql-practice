@@ -66,7 +66,7 @@ inner join Customer on Customer.SupportRepId = Employee.EmployeeId
 where Employee.FirstName = "Jane"
 group by Employee.EmployeeId;*/
 
-/*Most Popular Song*/
+/*Most Popular Song
 
 select MediaType.Name as MediaType, sum(InvoiceLine.Quantity) as Total
 from MediaType
@@ -74,4 +74,38 @@ inner join Track on MediaType.MediaTypeId = Track.MediaTypeId
 inner join InvoiceLine on InvoiceLine.TrackId = Track.TrackId
 group by Track.MediaTypeId
 order by Total desc
-limit 10;
+limit 10;*/
+
+/*What is the date of birth of our oldest employee
+
+select min(BirthDate)
+from Employee;*/
+
+
+
+/*How many customers do we have in the City of Berlin
+
+select count(CustomerId) as Total
+from Customer
+where City = "Berlin"
+group by City;*/
+
+
+/*How much has been made in sales for the track "The Woman King"
+
+select Track.Name as Track, sum(InvoiceLine.UnitPrice*InvoiceLine.Quantity) as Total
+from Track
+inner join InvoiceLine on Track.TrackId = InvoiceLine.TrackId
+where Track.Name = "The Woman King"
+group by Track;*/
+
+
+/*Create a list of the top 5 acts by number of tracks. The table should include the name of the artist and the number of tracks they have"*/
+
+select Artist.Name as Artist, count(Track.TrackId) as Total
+from Artist
+inner join Album on Artist.ArtistId = Album.ArtistId
+inner join Track on Track.AlbumId = Album.AlbumId
+group by Artist.ArtistId
+order by Total desc
+limit 5;
